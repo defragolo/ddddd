@@ -1,46 +1,42 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Jun  8 20:27:25 2019
-
-@author: Idriss
-"""
-
 import graphene
 import json
-from datetime import datetime
+from datetime import datetime 
 
 class User(graphene.ObjectType):
     id = graphene.ID()
     username = graphene.String()
-    createdAT = graphene.DateTime()
+    createdAt = graphene.DateTime()
+
+
 
 
 class Query(graphene.ObjectType):
-    users = graphene.List(User, limit=graphene.Int())
-    hello = graphene.String()#Int
-    is_hjkl = graphene.Boolean()
-    
-    def resolve_hello(self, info):
-        return "world"
-        
+    hello = graphene.Int()
+    users= graphene.List(User, limit=graphene.Int()) 
+    is_admin = graphene.Boolean()
     def resolve_is_admin(self, info):
         return True
-    
+    def resolve_hello(drlf, info):
+        return 2
     def resolve_users(self, info, limit=None):
-        return[User(id="1", username = "Fred", createdAT=datetime.now()), User(id="2", username="Doug", createdAT=datetime.now())][:limit]
-		
+        return[
+            User(id="1",username="Fred",
+                    createdAt=datetime.now()),
+            User(id="2", username="Fred",
+                    createdAt=datetime.now())
+            ][:limit]
 schema = graphene.Schema(query=Query, auto_camelcase=False)
-
 result = schema.execute(
 '''
 {
-    user{
+    users{
     id
     username
-    crearedAT
+    createdAt
     }
 }
 '''
+
 )
 
 print(result.data.items())
