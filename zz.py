@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Jun  8 20:27:25 2019
-
-@author: Idriss
-"""
-
 import graphene
 import json
 from datetime import datetime
